@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#fff0f6">
-<title>Una sorpresa para mi mamá 💗</title>
+<title>Una sorpresa para mamá 💗</title>
 
 <style>
 :root {
@@ -23,37 +23,13 @@ body {
   font-family: "Trebuchet MS", Arial, sans-serif;
   color: var(--ink);
   background:
-    radial-gradient(circle at 10% 10%, #ffe0ed 0, transparent 35%),
-    radial-gradient(circle at 90% 80%, #e8e0ff 0, transparent 35%),
+    radial-gradient(circle at 10% 10%, #ffe0ed, transparent 35%),
+    radial-gradient(circle at 90% 80%, #e8e0ff, transparent 35%),
     var(--cream);
   overflow-x: hidden;
 }
-
-button { font: inherit; cursor: pointer; }
-
-.cat {
-  position: fixed;
-  font-size: 35px;
-  opacity: .65;
-  pointer-events: none;
-  animation: float 4s ease-in-out infinite;
-}
-.cat.one { top: 7%; left: 4%; }
-.cat.two { top: 22%; right: 4%; animation-delay: 1s; }
-.cat.three { bottom: 7%; left: 6%; animation-delay: 2s; }
-
-@keyframes float {
-  0%, 100% { transform: translateY(0) rotate(-5deg); }
-  50% { transform: translateY(-14px) rotate(5deg); }
-}
-@keyframes pop {
-  from { opacity: 0; transform: scale(.88) translateY(12px); }
-  to { opacity: 1; transform: scale(1) translateY(0); }
-}
-@keyframes wiggle {
-  0%, 100% { transform: rotate(-4deg); }
-  50% { transform: rotate(4deg); }
-}
+button, input { font: inherit; }
+button { cursor: pointer; }
 
 header {
   max-width: 850px;
@@ -78,29 +54,25 @@ main {
   margin: 28px auto 50px;
   position: relative;
 }
-.progress {
-  display: flex;
-  gap: 7px;
-  margin-bottom: 16px;
-}
+.progress { display: flex; gap: 7px; margin-bottom: 16px; }
 .progress span {
   height: 7px;
   flex: 1;
   background: #eadce9;
   border-radius: 2px;
-  transition: background .3s;
 }
 .progress span.done { background: var(--pink); }
 
 .card {
-  background: rgba(255,255,255,.88);
+  background: rgba(255,255,255,.91);
   border: 2px solid white;
   border-radius: 25px;
   padding: clamp(23px, 6vw, 42px);
   text-align: center;
   box-shadow: 0 15px 45px #b98eae20;
-  animation: pop .45s ease both;
+  animation: appear .4s ease both;
 }
+.hidden { display: none !important; }
 .eyebrow {
   text-transform: uppercase;
   letter-spacing: 2px;
@@ -111,7 +83,11 @@ main {
 h1 { font-size: clamp(32px, 7vw, 48px); line-height: 1.12; margin: 14px 0; }
 h2 { font-size: clamp(25px, 5vw, 34px); margin: 12px 0; }
 p { line-height: 1.7; }
-.hero-cat { font-size: 85px; display: block; animation: wiggle 2s infinite; }
+.hero-cat {
+  font-size: 80px;
+  display: block;
+  animation: wiggle 2s infinite;
+}
 .small { font-size: 13px; opacity: .75; }
 
 .primary {
@@ -122,16 +98,11 @@ p { line-height: 1.7; }
   color: white;
   font-weight: 900;
   box-shadow: 0 6px 0 #d75c98;
-  transition: transform .15s, box-shadow .15s;
+  transition: transform .15s;
 }
-.primary:hover { transform: translateY(-2px); box-shadow: 0 8px 0 #d75c98; }
-.primary:active { transform: translateY(4px); box-shadow: 0 2px 0 #d75c98; }
-
-.answers {
-  display: grid;
-  gap: 10px;
-  margin: 22px 0;
-}
+.primary:hover { transform: translateY(-2px); }
+.primary:disabled { opacity: .6; cursor: default; }
+.answers { display: grid; gap: 10px; margin: 22px 0; }
 .answer {
   border: 2px solid #f0dce9;
   background: #fffaff;
@@ -139,16 +110,32 @@ p { line-height: 1.7; }
   padding: 14px;
   border-radius: 13px;
   text-align: left;
-  transition: .2s;
 }
 .answer:hover { border-color: var(--pink); background: #fff1f7; }
-.answer:focus-visible, button:focus-visible {
-  outline: 3px solid var(--purple);
-  outline-offset: 3px;
-}
+.answer:disabled { cursor: default; opacity: .8; }
 .feedback { min-height: 28px; font-weight: bold; color: #a1538b; }
-.hidden { display: none !important; }
+.cat {
+  position: fixed;
+  font-size: 35px;
+  opacity: .6;
+  pointer-events: none;
+  animation: float 4s ease-in-out infinite;
+}
+.cat.one { top: 12%; left: 3%; }
+.cat.two { top: 35%; right: 3%; animation-delay: 1s; }
+.cat.three { bottom: 8%; left: 5%; animation-delay: 2s; }
 
+#clueInput {
+  width: 100%;
+  padding: 15px;
+  border: 2px solid #f0dce9;
+  border-radius: 12px;
+  margin: 8px 0 16px;
+  text-align: center;
+  text-transform: uppercase;
+  color: var(--ink);
+  background: #fffaff;
+}
 .gift {
   font-size: 115px;
   display: block;
@@ -157,8 +144,6 @@ p { line-height: 1.7; }
   margin: 12px auto;
   animation: float 2s infinite;
 }
-.gift:focus-visible { outline: 3px solid var(--purple); }
-#celebration { position: relative; overflow: hidden; }
 .big-message {
   font-size: clamp(36px, 9vw, 62px);
   line-height: 1.1;
@@ -179,6 +164,22 @@ footer { text-align: center; padding: 0 15px 25px; font-size: 12px; opacity: .65
 @keyframes fall {
   to { transform: translateY(110vh) rotate(500deg); opacity: 0; }
 }
+@keyframes float {
+  0%,100% { transform: translateY(0) rotate(-4deg); }
+  50% { transform: translateY(-12px) rotate(4deg); }
+}
+@keyframes wiggle {
+  0%,100% { transform: rotate(-4deg); }
+  50% { transform: rotate(4deg); }
+}
+@keyframes appear {
+  from { opacity: 0; transform: translateY(10px) scale(.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+button:focus-visible, input:focus-visible {
+  outline: 3px solid var(--purple);
+  outline-offset: 3px;
+}
 </style>
 </head>
 
@@ -193,51 +194,68 @@ footer { text-align: center; padding: 0 15px 25px; font-size: 12px; opacity: .65
 </header>
 
 <main>
-  <div class="progress" id="progress" aria-label="Progreso">
-    <span></span><span></span><span></span><span></span>
+  <div class="progress" id="progress" aria-label="Progreso de la aventura">
+    <span></span><span></span><span></span><span></span><span></span>
   </div>
 
+  <!-- BIENVENIDA -->
   <section class="card" id="welcome">
-    <span class="hero-cat" aria-hidden="true">😻</span>
+    <span class="hero-cat">😻</span>
     <div class="eyebrow">Un día muy especial</div>
     <h1>¡Hoy la reina eres tú!</h1>
     <p>Hay alguien increíble que merece sonreír muchísimo hoy...</p>
-    <p><strong>¡Tú, mamá! 💗</strong></p>
-    <p>Preparé una pequeña aventura con gatitos, preguntas y una sorpresa final.</p>
+    <h2 id="welcomeName">¡Tú, mamá! 💗</h2>
+    <p>Preparé una aventura secreta con gatitos, preguntas y un regalo escondido.</p>
     <button class="primary" id="startBtn">Comenzar la aventura ✨</button>
-    <p class="small">Advertencia: puede contener ternura excesiva y gatos.</p>
+    <p class="small">Advertencia: contiene ternura excesiva y gatos.</p>
   </section>
 
+  <!-- PREGUNTAS -->
   <section class="card hidden" id="quiz">
     <div class="eyebrow" id="stage">MISIÓN 1 DE 3</div>
     <span style="font-size:48px" id="quizEmoji">🐱</span>
-    <h2 id="question">Pregunta</h2>
+    <h2 id="question"></h2>
     <p id="description"></p>
     <div class="answers" id="answers"></div>
     <p class="feedback" id="feedback" aria-live="polite"></p>
     <button class="primary hidden" id="nextBtn">Siguiente misión →</button>
   </section>
 
-  <section class="card hidden" id="preGift">
-    <span class="hero-cat">🐈‍⬛</span>
-    <div class="eyebrow">¡Aventura completada!</div>
-    <h1>¡Eres increíble, mamá!</h1>
-    <p>Has superado todas las misiones gatunas. Pero queda una cosa...</p>
-    <p><strong>Tu regalo está esperando que lo abras. 🎁</strong></p>
-    <p>Respira, sonríe y pulsa el regalo de abajo.</p>
-    <button class="primary" id="goGift">Estoy lista para la sorpresa 💝</button>
+  <!-- BÚSQUEDA DEL TESORO -->
+  <section class="card hidden" id="hunt">
+    <span class="hero-cat">🔎🐾</span>
+    <div class="eyebrow" id="huntStage">BÚSQUEDA DEL TESORO</div>
+    <h1 id="huntTitle">¡Encuentra la primera pista!</h1>
+    <p id="clueText"></p>
+    <p>Cuando encuentres la tarjeta, escribe su código aquí:</p>
+
+    <form id="clueForm">
+      <input id="clueInput"
+        type="text"
+        placeholder="Código secreto"
+        autocomplete="off"
+        autocapitalize="characters"
+        required>
+      <button class="primary" id="unlockBtn" type="submit">
+        Desbloquear siguiente pista 🔓
+      </button>
+    </form>
+    <p class="feedback" id="clueFeedback" aria-live="polite"></p>
   </section>
 
+  <!-- REGALO -->
   <section class="card hidden" id="giftCard">
-    <div class="eyebrow">UN REGALO HECHO CON AMOR</div>
-    <h2>¿Lista para descubrirlo?</h2>
+    <div class="eyebrow">LA ÚLTIMA SORPRESA</div>
+    <h2>¡Llegaste hasta el final!</h2>
+    <p>Ahora que has seguido todas las pistas, llegó el momento de descubrir tu regalo.</p>
     <button class="gift" id="giftBtn" aria-label="Abrir el regalo">🎁</button>
-    <p>¡Toca la cajita! 👆</p>
+    <p>¡Pulsa la cajita para abrirla! 💝</p>
   </section>
 
+  <!-- FINAL -->
   <section class="card hidden" id="celebration">
     <span style="font-size:55px">💗🐱💗</span>
-    <div class="big-message">¡Feliz cumpleaños, mamá!</div>
+    <div class="big-message" id="finalTitle">¡Feliz cumpleaños, mamá!</div>
     <h2>🎂 ¡Este día es todo tuyo! 🎂</h2>
     <p>
       Gracias por tu amor, por tus abrazos, por tu paciencia
@@ -249,74 +267,146 @@ footer { text-align: center; padding: 0 15px 25px; font-size: 12px; opacity: .65
     </p>
     <p style="font-size:25px">¡Te quiero muchísimo! ❤️</p>
     <div style="font-size:40px">🐈 🐈‍⬛ 🐈 🎉</div>
-    <p id="giftMessage" style="font-weight:bold">
-      ¡Tu regalo te espera con muchísimo amor! 🎁
-    </p>
+    <p id="giftMessage" style="font-weight:bold"></p>
     <button class="primary" id="againBtn">Volver a celebrar 🎉</button>
   </section>
 </main>
 
-<footer>Hecho con amor, un poquito de magia y muchos gatitos. 🐾</footer>
+<footer>Hecho con amor, magia y muchos gatitos. 🐾</footer>
 
 <script>
-// PERSONALIZA ESTAS DOS LÍNEAS:
-const MOM_NAME = "momy";
-const GIFT_MESSAGE = "¡Tu Regalo está por aqui! ¡Encuentralo!. ❤️";
+/* ========================================
+   PERSONALIZACIÓN
+======================================== */
 
-// Puedes cambiar las preguntas y respuestas aquí.
+const MOM_NAME = "Momy";
+
+// Mensaje que aparece al final:
+const GIFT_MESSAGE =
+  "¡Tu regalo te espera con muchísimo amor! ¡Te quiero! ❤️";
+
+// Cambia el lugar final según dónde escondas el regalo.
+const FINAL_LOCATION =
+  "¡Tu regalo está en el segundo piso, dentro del clóset, detrás de las mantas! 🎁";
+
+/* ========================================
+   PREGUNTAS
+======================================== */
+
 const missions = [
   {
     emoji: "😹",
     question: "Pregunta importantísima...",
     description: "¿Quién merece ser tratada como una reina hoy?",
-    answers: ["El gato del vecino 🐈", "¡Mi mamá! 👑", "Un extraterrestre 👽"],
+    answers: [
+      "El gato del vecino 🐈",
+      "¡Mi mamá! 👑",
+      "Un extraterrestre 👽"
+    ],
     correct: 1,
-    success: "¡CORRECTO! La reina de hoy eres tú. 👑"
+    success: "¡Correcto! La reina de hoy eres tú. 👑"
   },
   {
     emoji: "🐾",
     question: "El examen de los gatitos",
     description: "Si un gato te trae un regalo, ¿qué haces?",
-    answers: ["Le doy las gracias y lo acaricio 💗", "Le pido la boleta 🧾", "Le digo que pague el arriendo 😂"],
+    answers: [
+      "Le doy las gracias y lo acaricio 💗",
+      "Le pido la boleta 🧾",
+      "Le digo que pague el arriendo 😂"
+    ],
     correct: 0,
-    success: "¡Exacto! ¡Aprobada con honores gatunos! 🐾"
+    success: "¡Aprobada con honores gatunos! 🐾"
   },
   {
     emoji: "🎵",
-    question: "¡Una última misión musical!",
-    description: "¿Qué necesita una fiesta de cumpleaños perfecta?",
-    answers: ["Música, alegría y amor 🎸", "Limpiar toda la casa 🧹", "Una reunión de trabajo 📋"],
+    question: "¡La última misión musical!",
+    description: "¿Qué necesita una fiesta perfecta?",
+    answers: [
+      "Música, alegría y amor 🎸",
+      "Limpiar toda la casa 🧹",
+      "Una reunión de trabajo 📋"
+    ],
     correct: 0,
     success: "¡SÍÍÍ! ¡Que comience la fiesta! 🎉"
   }
 ];
 
-let current = 0;
-let audioContext = null;
-let musicOn = false;
-let melodyTimer = null;
-let noteIndex = 0;
+/* ========================================
+   PISTAS SECRETAS
+   Los códigos deben coincidir con las tarjetas.
+======================================== */
+
+const clues = [
+  {
+    code: "MIAU1",
+    location: "Debajo de un cojín del sofá",
+    message: "¡Primera pista encontrada! 🐾",
+    next: "¡Ahora ve al refrigerador! Allí te espera la siguiente tarjeta."
+  },
+  {
+    code: "MIAU2",
+    location: "En el refrigerador",
+    message: "¡Encontraste la segunda pista! ❄️",
+    next: "¡Busca cerca del zapatero! Tus zapatos podrían guardar un secreto. 👟"
+  },
+  {
+    code: "MIAU3",
+    location: "Junto al zapatero",
+    message: "¡Tercera pista desbloqueada! 👟",
+    next: "¡Sube al segundo piso y busca debajo de una almohada! 🛏️"
+  },
+  {
+    code: "MIAU4",
+    location: "Debajo de una almohada del segundo piso",
+    message: "¡ENCONTRASTE LA ÚLTIMA PISTA! 🎉",
+    next: ""
+  }
+];
+
+/* ========================================
+   NAVEGACIÓN Y PREGUNTAS
+======================================== */
 
 const $ = id => document.getElementById(id);
-const sections = ["welcome", "quiz", "preGift", "giftCard", "celebration"];
+
+const sections = ["welcome", "quiz", "hunt", "giftCard", "celebration"];
+
+let currentQuestion = 0;
+let currentClue = 0;
+
+document.title = `¡Feliz cumpleaños, ${MOM_NAME}! 💗`;
+$("welcomeName").textContent = `¡Tú, ${MOM_NAME}! 💗`;
+$("finalTitle").textContent = `¡Feliz cumpleaños, ${MOM_NAME}!`;
 
 function showSection(id) {
-  sections.forEach(s => $(s).classList.toggle("hidden", s !== id));
+  sections.forEach(name => {
+    $(name).classList.toggle("hidden", name !== id);
+  });
+
   $("progress").classList.toggle("hidden", id === "celebration");
   updateProgress(id);
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
 function updateProgress(id) {
-  const step = { welcome: 0, quiz: current + 1, preGift: 3, giftCard: 3, celebration: 4 }[id] || 0;
+  let step = 0;
+
+  if (id === "quiz") step = currentQuestion + 1;
+  if (id === "hunt") step = 3 + currentClue;
+  if (id === "giftCard") step = 5;
+  if (id === "celebration") step = 5;
+
   document.querySelectorAll("#progress span").forEach((el, i) => {
     el.classList.toggle("done", i < step);
   });
 }
 
-function renderMission() {
-  const m = missions[current];
-  $("stage").textContent = `MISIÓN ${current + 1} DE ${missions.length}`;
+function renderQuestion() {
+  const m = missions[currentQuestion];
+
+  $("stage").textContent =
+    `MISIÓN ${currentQuestion + 1} DE ${missions.length}`;
   $("quizEmoji").textContent = m.emoji;
   $("question").textContent = m.question;
   $("description").textContent = m.description;
@@ -324,40 +414,131 @@ function renderMission() {
   $("nextBtn").classList.add("hidden");
   $("answers").replaceChildren();
 
-  m.answers.forEach((answer, i) => {
+  m.answers.forEach((answer, index) => {
     const btn = document.createElement("button");
     btn.className = "answer";
     btn.textContent = answer;
+
     btn.addEventListener("click", () => {
-      if (i === m.correct) {
-        $("feedback").textContent = m.success;
-        $("nextBtn").classList.remove("hidden");
-        [...$("answers").children].forEach(b => b.disabled = true);
-      } else {
-        $("feedback").textContent = "¡Ups! 😂 ¡Inténtalo de nuevo, reina!";
+      if (index !== m.correct) {
+        $("feedback").textContent =
+          "¡Ups! 😂 ¡Inténtalo de nuevo, reina!";
+        return;
       }
+
+      $("feedback").textContent = m.success;
+
+      [...$("answers").children].forEach(button => {
+        button.disabled = true;
+      });
+
+      $("nextBtn").classList.remove("hidden");
     });
+
     $("answers").appendChild(btn);
   });
 }
 
 $("startBtn").addEventListener("click", () => {
-  current = 0;
-  renderMission();
+  currentQuestion = 0;
+  renderQuestion();
   showSection("quiz");
 });
 
 $("nextBtn").addEventListener("click", () => {
-  current++;
-  if (current < missions.length) {
-    renderMission();
+  currentQuestion++;
+
+  if (currentQuestion < missions.length) {
+    renderQuestion();
     showSection("quiz");
   } else {
-    showSection("preGift");
+    beginHunt();
   }
 });
 
-$("goGift").addEventListener("click", () => showSection("giftCard"));
+/* ========================================
+   BÚSQUEDA DEL TESORO
+======================================== */
+
+function beginHunt() {
+  currentClue = 0;
+  $("clueInput").value = "";
+  $("clueInput").classList.remove("hidden");
+  $("unlockBtn").classList.remove("hidden");
+  $("clueInput").disabled = false;
+  $("unlockBtn").disabled = false;
+  $("clueFeedback").textContent = "";
+
+  $("huntStage").textContent = "PISTA 1";
+  $("huntTitle").textContent = "¡Comienza la búsqueda!";
+  $("clueText").textContent =
+    "Tu primera tarjeta está debajo de un cojín del sofá. ¡Ve a buscarla! 🛋️";
+
+  showSection("hunt");
+}
+
+$("clueForm").addEventListener("submit", event => {
+  event.preventDefault();
+
+  if (currentClue >= clues.length) return;
+
+  const entered = $("clueInput").value.trim().toUpperCase();
+  const clue = clues[currentClue];
+
+  if (entered !== clue.code) {
+    $("clueFeedback").textContent =
+      "Ese código no es correcto. ¡Busca bien tu tarjeta! 🐱";
+    return;
+  }
+
+  $("clueFeedback").textContent = clue.message;
+  currentClue++;
+  $("clueInput").value = "";
+
+  if (currentClue < clues.length) {
+    const next = clues[currentClue];
+
+    $("huntStage").textContent = `PISTA ${currentClue + 1}`;
+    $("huntTitle").textContent = "¡Pista desbloqueada! ✨";
+    $("clueText").textContent = next.message
+      ? clue.next
+      : "Sigue buscando...";
+  } else {
+    $("huntStage").textContent = "MISIÓN COMPLETADA";
+    $("huntTitle").textContent = "¡Has encontrado todas las pistas!";
+    $("clueText").textContent =
+      "¡Lo lograste! Ahora pulsa el botón para descubrir la ubicación final de tu regalo. ❤️";
+
+    $("clueInput").classList.add("hidden");
+    $("unlockBtn").classList.add("hidden");
+
+    const finalBtn = document.createElement("button");
+    finalBtn.type = "button";
+    finalBtn.className = "primary";
+    finalBtn.textContent = "Revelar la última pista 🎁";
+
+    finalBtn.addEventListener("click", () => {
+      $("huntTitle").textContent = "¡Tu última pista! 🥹";
+      $("clueText").textContent = FINAL_LOCATION;
+      $("clueFeedback").textContent =
+        "¡Feliz cumpleaños, " + MOM_NAME + "! ❤️";
+
+      finalBtn.remove();
+      const continueBtn = document.createElement("button");
+      continueBtn.type = "button";
+      continueBtn.className = "primary";
+      continueBtn.textContent = "¡He encontrado mi regalo! 🎁";
+      continueBtn.addEventListener("click", () => showSection("giftCard"));
+      $("clueForm").appendChild(continueBtn);
+    });
+
+    $("clueForm").appendChild(finalBtn);
+  }
+});
+
+/* ========================================
+   REGALO Y CELEBRACIÓN
+======================================== */
 
 $("giftBtn").addEventListener("click", () => {
   $("giftMessage").textContent = GIFT_MESSAGE;
@@ -367,17 +548,20 @@ $("giftBtn").addEventListener("click", () => {
 });
 
 $("againBtn").addEventListener("click", () => {
-  current = 0;
-  renderMission();
+  currentQuestion = 0;
+  currentClue = 0;
+  renderQuestion();
   showSection("welcome");
 });
 
 function celebrate() {
   const symbols = ["💗", "✨", "🎉", "🐾", "💖", "🎊"];
+
   for (let i = 0; i < 65; i++) {
     const el = document.createElement("div");
     el.className = "heart";
-    el.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+    el.textContent =
+      symbols[Math.floor(Math.random() * symbols.length)];
     el.style.left = Math.random() * 100 + "vw";
     el.style.animationDuration = (2.5 + Math.random() * 3) + "s";
     el.style.fontSize = (15 + Math.random() * 20) + "px";
@@ -386,55 +570,69 @@ function celebrate() {
   }
 }
 
-// Melodía original retro, sintetizada en el navegador.
-// No necesita archivos de música ni enlaces externos.
+/* ========================================
+   MÚSICA RETRO ORIGINAL
+======================================== */
+
+let audioContext = null;
+let musicOn = false;
+let melodyTimer = null;
+
 const melody = [
-  [392, 0.24], [392, 0.24], [440, 0.48], [392, 0.48],
-  [523, 0.48], [494, 0.8], [392, 0.24], [392, 0.24],
-  [440, 0.48], [392, 0.48], [587, 0.48], [523, 0.8],
-  [392, 0.24], [392, 0.24], [784, 0.48], [659, 0.48],
-  [523, 0.48], [494, 0.48], [440, 0.8]
+  [392, .24], [392, .24], [440, .48], [392, .48],
+  [523, .48], [494, .8], [392, .24], [392, .24],
+  [440, .48], [392, .48], [587, .48], [523, .8],
+  [392, .24], [392, .24], [784, .48], [659, .48],
+  [523, .48], [494, .48], [440, .8]
 ];
 
-function playNote(freq, duration, startTime) {
-  if (!audioContext) return;
+function playNote(freq, duration, time) {
   const osc = audioContext.createOscillator();
   const gain = audioContext.createGain();
+
   osc.type = "triangle";
   osc.frequency.value = freq;
-  gain.gain.setValueAtTime(0.0001, startTime);
-  gain.gain.exponentialRampToValueAtTime(0.12, startTime + 0.025);
-  gain.gain.exponentialRampToValueAtTime(0.0001, startTime + duration);
+
+  gain.gain.setValueAtTime(.0001, time);
+  gain.gain.exponentialRampToValueAtTime(.09, time + .025);
+  gain.gain.exponentialRampToValueAtTime(.0001, time + duration);
+
   osc.connect(gain);
   gain.connect(audioContext.destination);
-  osc.start(startTime);
-  osc.stop(startTime + duration + 0.03);
+
+  osc.start(time);
+  osc.stop(time + duration + .03);
 }
 
 function startMusic() {
   if (musicOn) return;
+
   const AudioCtx = window.AudioContext || window.webkitAudioContext;
+
   if (!AudioCtx) {
-    $("musicBtn").textContent = "♫ Música no disponible";
+    $("musicBtn").textContent = "Música no disponible";
     return;
   }
 
   audioContext = audioContext || new AudioCtx();
   audioContext.resume();
+
   musicOn = true;
   $("musicBtn").textContent = "♫ Pausar música";
 
-  const playMelody = () => {
+  function playMelody() {
     if (!musicOn) return;
-    let t = audioContext.currentTime + 0.05;
-    for (let i = 0; i < melody.length; i++) {
-      const [freq, duration] = melody[(noteIndex + i) % melody.length];
-      playNote(freq, duration * 0.85, t);
-      t += duration * 0.7;
-    }
-    noteIndex = (noteIndex + melody.length) % melody.length;
-    melodyTimer = setTimeout(playMelody, 7200);
-  };
+
+    let time = audioContext.currentTime + .05;
+
+    melody.forEach(([freq, duration]) => {
+      playNote(freq, duration * .8, time);
+      time += duration * .7;
+    });
+
+    melodyTimer = setTimeout(playMelody, 8500);
+  }
+
   playMelody();
 }
 
@@ -448,11 +646,6 @@ $("musicBtn").addEventListener("click", () => {
   if (musicOn) stopMusic();
   else startMusic();
 });
-
-// Personaliza el título y mensaje con el nombre de mamá.
-document.title = `¡Feliz cumpleaños, ${MOM_NAME}! 💗`;
-$("celebration").querySelector(".big-message").textContent =
-  `¡Feliz cumpleaños, ${MOM_NAME}!`;
 </script>
 </body>
 </html>
